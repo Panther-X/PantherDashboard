@@ -1,8 +1,8 @@
 <?php
 	shell_exec("/etc/monitor-scripts/helium-statuses.sh");
-	$live_height = trim(file_get_contents('/var/dashboard/statuses/current_blockheight'));
+	$live_height = intval(trim(file_get_contents('/var/dashboard/statuses/current_blockheight')));
 	$online_status = trim(file_get_contents("/var/dashboard/statuses/online_status"));
-	$miner_height = trim(file_get_contents("/var/dashboard/statuses/infoheight"));
+	$miner_height = intval(trim(file_get_contents("/var/dashboard/statuses/infoheight")));
 	$sync_gap = $live_height - $miner_height;
 
 	header('Content-Type:application/json; charset=utf-8');

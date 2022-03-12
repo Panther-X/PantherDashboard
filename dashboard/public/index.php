@@ -131,6 +131,7 @@ else
 					<?php echo $sync ?>
 					<li>Miner Height: <span id="miner_height">Loading</span></li>
 					<li>Live Height: <span id="live_height">Loading</span></li>
+					<li>Sync Gap: <span id="sync_gap">Loading</span></li>
 					<li>Online Status: <span id="online_status">Loading</span></li>
 				</ul>
 			</div>

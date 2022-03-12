@@ -11,6 +11,13 @@ $info['MinerVersion'] = trim(file_get_contents('/var/dashboard/statuses/current_
 $info['LatestMinerVersion'] = trim(file_get_contents('/var/dashboard/statuses/latest_miner_version'));
 $info['PantherXVer'] = trim(file_get_contents("/var/dashboard/statuses/pantherx_ver"));
 $info['FirmwareVersion'] = trim(file_get_contents("/etc/ota_version"));
+
+//Calculate some variables, so we can show a more detailled status than just "Syncing"
+$CurrentBlockHeight = intval($info['CurrentBlockHeight']);
+$MinerBlockHeight = intval($info['MinerBlockHeight']);
+$BlockGap = $CurrentBlockHeight - $MinerBlockHeight;
+$BlockGapPercentage = ($MinerBlockHeight / $CurrentBlockHeight) * 100;
+
 if (file_exists('/opt/panther-x2/data/SN')) {
     $info['PantherXSN'] = trim(file_get_contents("/opt/panther-x2/data/SN"));
 }
@@ -29,7 +36,7 @@ elseif(($info['CurrentBlockHeight'] - $info['MinerBlockHeight']) <= 20)
 }
 else
 {
-        $sync = '<li><p style="color:yellow">Syncing</p></li><br />';
+        $sync = '<li><p style="color:yellow">Syncing '. number_format($BlockGapPercentage,2) . '%</br>We are ' . $BlockGap . ' blocks behind</p></li><br />';
 }
 ?>
 <!DOCTYPE html>

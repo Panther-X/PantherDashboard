@@ -225,14 +225,17 @@ function ClosePrompt()
 $(document).ready(function(){
 	$("#miner_height").text("Loading");
 	$("#live_height").text("Loading");
+	$("#sync_gap").text("Loading");
 	$("#online_status").text("Loading");
 	$.get("HeliumStatus.php",function(data){
 		$("#miner_height").text(data.miner_height);
 		$("#live_height").text(data.live_height);
+		$("#sync_gap").text(data.sync_gap);
 		$("#online_status").text(data.online_status);
 	}).error(function(){
 		$("#online_status").text("Maintenance");
 		$("#miner_height").text("Maintenance");
+		$("#sync_gap").text("Maintenance");
 		$("#live_height").text("Maintenance");
 	})
 })

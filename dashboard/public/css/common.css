@@ -385,6 +385,11 @@ header #power_container a:hover {
 	display: block;
 }
 
+#main #content #tools_buttons ul li#network_detection_button .icon-hammer {
+	font-size: 50px;
+	display: block;
+}
+
 #main #content #tools_buttons ul li#clear_blockchain_button .icon-warning {
 	font-size: 40px;
 	display: block;

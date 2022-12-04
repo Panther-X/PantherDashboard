@@ -250,3 +250,38 @@ function SetTimezone()
 
 	httpRequest.send(params);
 }
+
+function StartNetworkDetection()
+{
+	httpRequest = new XMLHttpRequest();
+	httpRequest.open('GET', '/index.php?page=networkdetection&start=true', true);
+	httpRequest.send();
+
+	serviceRequest = new XMLHttpRequest();
+	serviceRequest.open('GET', 'services.php?name=network-detection', true);
+	serviceRequest.send();
+	var logRefresh = setInterval(function() {
+		serviceRequest.open('GET', 'services.php?name=network-detection', true);
+		serviceRequest.send();
+		serviceRequest.onreadystatechange = function() {
+			if(serviceRequest.readyState == 4 && serviceRequest.status == 200)
+			{
+				logRequest = new XMLHttpRequest();
+				logRequest.open('GET', 'logs.php?name=network-detection', true);
+				logRequest.send();
+
+				logRequest.onreadystatechange = function() {
+					if(logRequest.readyState == 4 && logRequest.status == 200)
+					{
+						document.getElementById("log_output").innerHTML = logRequest.responseText;
+					}
+				}
+
+				if(serviceRequest.responseText == 'stopped')
+				{
+					clearInterval(logRefresh);
+				}
+			}
+		}
+	}, 1000)
+}

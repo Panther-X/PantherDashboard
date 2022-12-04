@@ -1,10 +1,10 @@
 @font-face {
   font-family: 'icomoon';
-  src:  url('fonts/icomoon.eot?8zjkvy');
-  src:  url('fonts/icomoon.eot?8zjkvy#iefix') format('embedded-opentype'),
-    url('fonts/icomoon.ttf?8zjkvy') format('truetype'),
-    url('fonts/icomoon.woff?8zjkvy') format('woff'),
-    url('fonts/icomoon.svg?8zjkvy#icomoon') format('svg');
+  src:  url('fonts/icomoon.eot?gi0xof');
+  src:  url('fonts/icomoon.eot?gi0xof#iefix') format('embedded-opentype'),
+    url('fonts/icomoon.ttf?gi0xof') format('truetype'),
+    url('fonts/icomoon.woff?gi0xof') format('woff'),
+    url('fonts/icomoon.svg?gi0xof#icomoon') format('svg');
   font-weight: normal;
   font-style: normal;
   font-display: block;
@@ -25,11 +25,11 @@
   -moz-osx-font-smoothing: grayscale;
 }
 
-.icon-time:before {
-  content: "\e901";
-}
 .icon-system_update_tv:before {
   content: "\e900";
+}
+.icon-time:before {
+  content: "\e901";
 }
 .icon-bluetooth_disabled:before {
   content: "\e902";
@@ -75,6 +75,9 @@
 }
 .icon-wrench:before {
   content: "\e991";
+}
+.icon-hammer:before {
+  content: "\e996";
 }
 .icon-switch:before {
   content: "\e9b6";

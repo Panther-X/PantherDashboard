@@ -96,6 +96,10 @@ if ($info['PantherXVer'] == 'X1') {
 					include('/var/dashboard/pages/updateminer.php');
 					break;
 
+				case 'networkdetection':
+					include('/var/dashboard/pages/networkdetection.php');
+					break;
+
 				case 'updatedashboard':
 					include('/var/dashboard/pages/updatedashboard.php');
 					break;

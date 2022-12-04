@@ -46,5 +46,12 @@ $info['PantherXVer'] = trim(file_get_contents("/var/dashboard/statuses/pantherx_
 				<span class="button_title">Set Timezone</span>
 			</a>
 		</li>
+
+		<li id="network_detection_button">
+			<a href="/index.php?page=networkdetection" title="Network Detection">
+				<span class="icon-hammer"></span>
+				<span class="button_title">Network Detection</span>
+			</a>
+		</li>
 	</ul>
 </div>

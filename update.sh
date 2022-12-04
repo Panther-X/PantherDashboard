@@ -32,7 +32,7 @@ if id -nG admin | grep -qw "sudo"; then
       # Remove it if is corrupt, it will install with php-fpm
       apt-get --assume-yes purge php7.3-json
     fi
-    apt-get --assume-yes install nginx php-fpm php7.3-fpm ngrep gawk php-cli logrotate
+    apt-get --assume-yes install nginx php-fpm php7.3-fpm ngrep gawk php-cli logrotate netcat
 
     mkdir -p /var/dashboard
     mkdir -p /var/dashboard/logs

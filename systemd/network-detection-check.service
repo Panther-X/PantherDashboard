@@ -1,5 +1,5 @@
 [Unit]
-Description=Network detection checker
+Description=Server detection checker
 
 [Service]
-ExecStart=/etc/monitor-scripts/network-detection.sh
+ExecStart=/etc/monitor-scripts/server-detection.sh

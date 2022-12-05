@@ -15,8 +15,8 @@ if(isset($_GET['name']))
 			echo trim(file_get_contents('/var/dashboard/services/clear-blockchain'));
 			break;
 
-		case 'network-detection':
-			echo trim(file_get_contents('/var/dashboard/services/network-detection'));
+		case 'server-detection':
+			echo trim(file_get_contents('/var/dashboard/services/server-detection'));
 			break;
 	}
 }

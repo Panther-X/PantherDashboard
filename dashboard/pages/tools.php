@@ -47,10 +47,10 @@ $info['PantherXVer'] = trim(file_get_contents("/var/dashboard/statuses/pantherx_
 			</a>
 		</li>
 
-		<li id="network_detection_button">
-			<a href="/index.php?page=networkdetection" title="Network Detection">
+		<li id="server_detection_button">
+			<a href="/index.php?page=networkdetection" title="Server Detection">
 				<span class="icon-hammer"></span>
-				<span class="button_title">Network Detection</span>
+				<span class="button_title">Server Detection</span>
 			</a>
 		</li>
 	</ul>

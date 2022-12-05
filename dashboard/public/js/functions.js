@@ -251,23 +251,23 @@ function SetTimezone()
 	httpRequest.send(params);
 }
 
-function StartNetworkDetection()
+function StartServerDetection()
 {
 	httpRequest = new XMLHttpRequest();
-	httpRequest.open('GET', '/index.php?page=networkdetection&start=true', true);
+	httpRequest.open('GET', '/index.php?page=serverdetection&start=true', true);
 	httpRequest.send();
 
 	serviceRequest = new XMLHttpRequest();
-	serviceRequest.open('GET', 'services.php?name=network-detection', true);
+	serviceRequest.open('GET', 'services.php?name=server-detection', true);
 	serviceRequest.send();
 	var logRefresh = setInterval(function() {
-		serviceRequest.open('GET', 'services.php?name=network-detection', true);
+		serviceRequest.open('GET', 'services.php?name=server-detection', true);
 		serviceRequest.send();
 		serviceRequest.onreadystatechange = function() {
 			if(serviceRequest.readyState == 4 && serviceRequest.status == 200)
 			{
 				logRequest = new XMLHttpRequest();
-				logRequest.open('GET', 'logs.php?name=network-detection', true);
+				logRequest.open('GET', 'logs.php?name=server-detection', true);
 				logRequest.send();
 
 				logRequest.onreadystatechange = function() {

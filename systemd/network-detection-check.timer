@@ -1,5 +1,5 @@
 [Unit]
-Description=Run the Packet Forwarder status check every 15 seconds.
+Description=Run the Server Detection status check every 15 seconds.
 
 [Timer]
 OnBootSec=15

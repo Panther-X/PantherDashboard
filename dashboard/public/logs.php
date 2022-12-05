@@ -15,8 +15,8 @@ if(isset($_GET['name']))
 			echo file_get_contents('/var/dashboard/logs/clear-blockchain.log');
 			break;
 
-		case 'network-detection':
-			echo file_get_contents('/var/dashboard/logs/network-detection.log');
+		case 'server-detection':
+			echo file_get_contents('/var/dashboard/logs/server-detection.log');
 			break;
 	
 	}

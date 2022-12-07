@@ -385,7 +385,7 @@ header #power_container a:hover {
 	display: block;
 }
 
-#main #content #tools_buttons ul li#network_detection_button .icon-hammer {
+#main #content #tools_buttons ul li#server_detection_button .icon-hammer {
 	font-size: 50px;
 	display: block;
 }

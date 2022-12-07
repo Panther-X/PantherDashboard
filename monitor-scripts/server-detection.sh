@@ -48,9 +48,9 @@ fi
 if [[ $service == 'start' ]]; then
   touch /tmp/dashboard-$name-flag
   echo 'running' > /var/dashboard/services/$name
-  echo 'Running Network Detection' > /var/dashboard/logs/$name.log
+  echo 'Running Server Detection' > /var/dashboard/logs/$name.log
   check_dashboard_server_status https://raw.githubusercontent.com/Panther-X/PantherDashboard/main/install.sh Dashboard-Server
   check_validator_server_status
   echo 'stopped' > /var/dashboard/services/$name
-  echo 'Network Detection complete.' >> /var/dashboard/logs/$name.log
+  echo 'Server Detection complete.' >> /var/dashboard/logs/$name.log
 fi

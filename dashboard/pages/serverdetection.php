@@ -9,11 +9,9 @@ if($_GET['start'])
 		$file = fopen('/var/dashboard/services/server-detection', 'w');
 		fwrite($file, 'start');
 		fclose($file);
-
 		$file = fopen('/var/dashboard/logs/server-detection.log', 'w');
 		fwrite($file, '');
 		fclose($file);
-
 	}
 }
 ?>

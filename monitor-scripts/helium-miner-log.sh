@@ -1,2 +1,2 @@
 #!/bin/bash
-docker logs helium-miner > /var/dashboard/logs/helium-miner.log
+docker logs --since "`date -d "-2 day" +%Y-%m-%d`" helium-miner > /var/dashboard/logs/helium-miner.log

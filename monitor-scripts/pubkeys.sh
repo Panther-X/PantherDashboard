@@ -1,6 +1,12 @@
 #!/bin/bash
 
 ecc_addr=`i2cdetect -y 1 | grep 60 | awk '{ print $2 }'`
+for i in {1..3}; do
+    if [ "$ecc_addr" != "60" ]; then
+        ecc_addr=`i2cdetect -y 1 | grep 60 | awk '{ print $2 }'`
+        sleep 1
+    fi
+done
 [ "$ecc_addr" != "60" ] && systemctl suspend
 sleep 1
 

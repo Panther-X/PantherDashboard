@@ -2,28 +2,47 @@
 rm /tmp/latest.tar.gz
 
 if test -f /var/dashboard/branch; then
-  BRANCH=`cat /var/dashboard/branch`
+  BRANCH=$(cat /var/dashboard/branch)
 else
   BRANCH='main'
 fi
 
+if test -f /var/dashboard/local-repo-path; then
+  LOCAL_REPO_PATH=$(cat /var/dashboard/local-repo-path)
+fi
+
 if test -d /var/dashboard; then
   echo 'Dashboard already installed, running an update...'
-  wget https://raw.githubusercontent.com/Panther-X/PantherDashboard/${BRANCH}/update.sh -O - | sudo bash
+  if test -f /var/dashboard/local-repo-path; then
+    $LOCAL_REPO_PATH/update.sh
+  else
+    wget https://raw.githubusercontent.com/Panther-X/PantherDashboard/${BRANCH}/update.sh -O - | sudo bash
+  fi
 else
   if id -nG admin | grep -qw "sudo"; then
-    if test -f /var/dashboard/commit-hash; then
-      VER=`cat /var/dashboard/commit-hash`
-      wget https://codeload.github.com/Panther-X/PantherDashboard/tar.gz/${VER} -O /tmp/latest.tar.gz
+    if test -f /var/dashboard/local-repo-path; then
+      cd $LOCAL_REPO_PATH
+      if test -f /var/dashboard/branch; then
+        git archive --format=tar.gz -o /tmp/latest.tar.gz --prefix=PantherDashboard-${BRANCH}/ ${BRANCH}
+        VER=${BRANCH}
+      else
+        CURRENT_BRANCH=$(git symbolic-ref --short -q HEAD)
+        git archive --format=tar.gz -o /tmp/latest.tar.gz --prefix=PantherDashboard-${CURRENT_BRANCH}/ ${CURRENT_BRANCH}
+        VER=${CURRENT_BRANCH}
+      fi
+    elif test -f /var/dashboard/branch; then
+      wget https://codeload.github.com/Panther-X/PantherDashboard/tar.gz/${BRANCH} -O /tmp/latest.tar.gz
+      VER=${BRANCH}
     else
       wget https://raw.githubusercontent.com/Panther-X/PantherDashboard/${BRANCH}/version -O /tmp/dashboard_latest_ver
-      VER=`cat /tmp/dashboard_latest_ver`
+      VER=$(cat /tmp/dashboard_latest_ver)
       wget https://codeload.github.com/Panther-X/PantherDashboard/tar.gz/refs/tags/${VER} -O /tmp/latest.tar.gz
     fi
+
     cd /tmp
     if test -s latest.tar.gz; then
       rm -rf /tmp/PantherDashboard-*
-    
+
       tar -xzf latest.tar.gz
       cd PantherDashboard-${VER}
       apt-get update
@@ -42,10 +61,10 @@ else
       cp version /var/dashboard/
       cp monitor-scripts/* /etc/monitor-scripts/
       cp -r logrotate.d/* /etc/logrotate.d/
-       
+
       cp nginx/snippets/* /etc/nginx/snippets/
       cp nginx/default /etc/nginx/sites-enabled
-    
+
       if ! test -f /var/dashboard/.htpasswd; then
         cp nginx/.htpasswd /var/dashboard/.htpasswd
       fi
@@ -58,7 +77,7 @@ else
 
       openssl dhparam -out /etc/ssl/certs/dhparam.pem 2048
       openssl req -new -newkey rsa:2048 -days 365 -nodes -x509 -subj "/C=CN/ST=Panther/L=Panther/O=Panther/CN=localhost" -keyout /etc/ssl/private/nginx-selfsigned.key -out /etc/ssl/certs/nginx-selfsigned.crt
-    
+
       cp systemd/* /etc/systemd/system/
 
       chmod 755 /etc/monitor-scripts/*
@@ -78,12 +97,11 @@ else
 
       bash /etc/monitor-scripts/pantherx-ver-check.sh
       FILES="systemd/*.timer"
-      for f in $FILES;
-      do
-         name=$(echo $f | sed 's/.timer//' | sed 's/systemd\///')
-         systemctl start $name.timer
-         systemctl enable $name.timer
-         systemctl start $name.service
+      for f in $FILES; do
+        name=$(echo $f | sed 's/.timer//' | sed 's/systemd\///')
+        systemctl start $name.timer
+        systemctl enable $name.timer
+        systemctl start $name.service
       done
 
       systemctl daemon-reload
@@ -99,6 +117,6 @@ else
       echo 'No installation archive found.  No changes made.'
     fi
   else
-    echo 'Error checking if admin user exists.  No changes made.';
+    echo 'Error checking if admin user exists.  No changes made.'
   fi
 fi
